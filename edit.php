@@ -22,13 +22,6 @@ if (!empty($_GET['id'])) {
     
     var_dump($equipamento);
 
-    if (preg_match("/projetor 1/", $equipamento)) {
-        echo "yeahh";
-    }
-    else {
-        echo "oh noo";
-    }
-
 }
 
 else {
