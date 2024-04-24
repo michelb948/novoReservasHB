@@ -42,18 +42,7 @@ if (isset($_POST['submit'])) {
         header("location: home.php");
     }
 }    
-//Deletar quando chegar a hora de terminar a aula
-$data = date("Y-m-d");
-$hora = date("H:i:s");
 
-$sqlDelete = mysqli_query($conexao, "SELECT * FROM reservas1 WHERE dia='$data' AND termino='$hora'");
-
-if ($sqlDelete->num_rows > 0) {
-    $sql = mysqli_query($conexao, "DELETE FROM reservas1 WHERE dia='$data' AND termino='$hora'");
-}
-else {
-    echo "0";
-}
     
     //$delete = "SELECT * FROM reservas1 WHERE now() NOT BETWEEN created_at AND exclusao_reserva";
     //$result2 = $conexao->query($delete);

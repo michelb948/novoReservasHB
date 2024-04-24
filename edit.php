@@ -395,12 +395,3 @@ if(!isset($_SESSION['nome']) == true)
 </html>
 
 <?php
-//echo strpos($aulas, 1)
-//echo strpos($aulas, 2)
-//echo strpos($aulas, 3)
-//echo strpos($aulas, 4)
-//echo strpos($aulas, 5)
-//echo strpos($aulas, 6)
-//echo strpos($aulas, 7)
-//echo strpos($aulas, 8)
-//echo strpos($aulas, 9)
