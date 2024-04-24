@@ -19,8 +19,6 @@ if (!empty($_GET['id'])) {
         }
            
     }
-    
-    var_dump($equipamento);
 
 }
 
