@@ -114,10 +114,11 @@ if(!isset($_SESSION['nome']) == true)
             <!--Caixa de seleção dos equipamentos-->
             </select>
             <hr>
-            <label for="Equipamentolabel">Escolha seus equipamentos</label>
+            <label class="equipamento" for="Equipamentolabel">Escolha seus equipamentos</label>
+            <br>
             <br>
             <label for="projetor">Projetor</label>
-
+            
             <div class="projetor" style="margin-right: 100%;">
                 <div class="grid-item">
                     <input type="checkbox" id="" name="equipamento[]" value="projetor 1">
@@ -160,7 +161,9 @@ if(!isset($_SESSION['nome']) == true)
                     <label for="">10</label>
                 </div>
             </div>     
-
+            <br>
+            <hr>
+            <br>
             <label for="Roteador">Roteador</label>
             <div class="roteador">
                 <div class="grid-item">
@@ -185,6 +188,10 @@ if(!isset($_SESSION['nome']) == true)
                 </div>
             </div>
 
+            <br>
+            <hr>
+            <br>
+
             <label for="">Notebook</label>
             <div class="notebook">
                 <div class="grid-item">
@@ -204,6 +211,10 @@ if(!isset($_SESSION['nome']) == true)
                     <label for="">4</label>
                 </div>
             </div>
+
+            <br>
+            <hr>
+            <br>
 
             <label for="">Caixa de som</label>
             <div class="caixa-de-som">
@@ -241,6 +252,10 @@ if(!isset($_SESSION['nome']) == true)
                 </div>
             </div>
 
+            <br>
+            <hr>
+            <br>
+
             <label for="">Cabo P2 P10</label>
 
             <div class="Cabo-p2-p10">
@@ -262,6 +277,10 @@ if(!isset($_SESSION['nome']) == true)
                 </div>
                 
             </div>
+
+            <br>
+            <hr>
+            <br>
 
             <label for="">Cabo HDMI</label>
 
@@ -308,7 +327,11 @@ if(!isset($_SESSION['nome']) == true)
                 </div>
             </div>
 
-            <div class="cabo audio">
+            <br>
+            <hr>
+            <br>
+            <label for="">Cabo de audio RCA</label>
+            <div class="cabo-audio-rca">
                 <div class="grid-item">
                     <input type="checkbox" id="" name="equipamento[]" value="cabo audio 1">
                     <label for="">1</label>
@@ -323,6 +346,10 @@ if(!isset($_SESSION['nome']) == true)
                 </div>
                 
             </div>
+
+            <br>
+            <hr>
+            <br>
 
             <label for="">Extensão</label>
             <div class="Extensão">
@@ -348,11 +375,16 @@ if(!isset($_SESSION['nome']) == true)
                 
             </div>
 
+            <br>
             <hr>
-            <label for="data">Selecione a data:</label>
-            <input type="date" id="data" name="data" required>
-            <input type="submit" name="submit" value="Enviar" class="btn">
-            <button type="click" onclick="location.href='../home.php'">Voltar</button>
+            <br>
+            
+        <label for="data">Selecione a data:</label>
+        <div class="Data">
+
+        <input type="date" id="data" name="data" required>
+        <input type="submit" name="submit" value="Enviar" class="btn">
+        <button type="click" onclick="location.href='../home.php'">Voltar</button>
         </form>
     </div>
     <script src="reserv.js"></script>
