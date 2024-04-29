@@ -8,49 +8,109 @@ if (isset($_POST['submit'])) {
     $data = $_POST['data'];
     $aulas = ($_POST['aula']);
     
+    //Tem como usar o max() para comparar strings
     //converter array aulas e equipamento para string
     $aulas1 = implode($aulas);
     $equipamento1 = implode($equipamento);
 
-    //Não reservar se o mesmo equipamento for solicitado para os mesmos horários
-    $query = "SELECT * FROM reservas1 WHERE equipamento='$equipamento1' AND aulas='$aulas1' AND dia='$data'";
-    $result = $conexao->query($query);
+    //-------------------------------------------------------------------------------------------
+    $iguais = mysqli_query($conexao, "SELECT equipamento, aulas, dia FROM reservas1");
 
-    if ($result->num_rows > 0) {
-        echo "Reserva não pôde ser feita, pois alguém já reservou este equipamento para estas aulas";
-    }
+    if ($iguais->num_rows > 0) {
+        while ($user_dataIguais = mysqli_fetch_assoc($iguais)){
+            $equipamentoIguais = $user_dataIguais['equipamento'];
+            $aulasIguais = $user_dataIguais['aulas'];
+            $diaIguais = $user_dataIguais['dia'];
 
-    else
-    {
-        $maiorAula = max($aulas);
-        $sqlTermino = mysqli_query($conexao, "SELECT termino FROM aulas WHERE aula='$maiorAula'");
-        //$termino recebe 1, não a hr;
-        if ($sqlTermino->num_rows > 0) {
-            while ($user_data = mysqli_fetch_assoc($sqlTermino)) {
-                $termino = $user_data['termino'];
-                $termino1 = strval($termino);
-            }    
-        }    
-        else {
-            echo "Não foi possivel achar o termino da aula";
+        //-------------------------------------------------------------------------------------------
+                       
+        echo $equipamento1 . "<br>";
+        echo $equipamentoIguais . "<br>";
+
+        if (preg_match("/$equipamento1/", $equipamentoIguais) || preg_match("/$equipamentoIguais/", $equipamento1)) {
+            if (preg_match("/$aulas1/", $aulasIguais) || preg_match("/$aulasIguais/", $aulas1)) {
+                if ($data == $diaIguais) {
+                    echo "Reserva não pôde ser feita pois alguém já reservou este(s) equipamento(s) para tal data";
+                }
+                //3º Else --------------------------------------------------------------------------
+                else
+                {
+                    $maiorAula = max($aulas);
+                    $sqlTermino = mysqli_query($conexao, "SELECT termino FROM aulas WHERE aula='$maiorAula'");
+                    
+                    if ($sqlTermino->num_rows > 0) {
+                        while ($user_data = mysqli_fetch_assoc($sqlTermino)) {
+                            $termino = $user_data['termino'];
+                            $termino1 = strval($termino);
+                        }    
+                    }    
+                    else {
+                        echo "Não foi possivel achar o termino da aula";
+                    }
+
+                    //$result1 = mysqli_query($conexao, "INSERT INTO reservas1 (nome, equipamento, aulas, dia, termino) VALUES ('$nome', '$equipamento1', '$aulas1', '$data', '$termino1')");
+                    
+                    //if ($result1) {
+                        //header("location: home.php");
+                    //}
+                    //else {
+                      //  echo "afffff";
+                    //}
+                }
+                //----------------------------------------------------------------------------------
+            }
+            // 2º Else---------------------------------------------------------------------------- 
+            else
+            {
+                $maiorAula = max($aulas);
+                $sqlTermino = mysqli_query($conexao, "SELECT termino FROM aulas WHERE aula='$maiorAula'");
+                
+                if ($sqlTermino->num_rows > 0) {
+                    while ($user_data = mysqli_fetch_assoc($sqlTermino)) {
+                        $termino = $user_data['termino'];
+                        $termino1 = strval($termino);
+                    }    
+                }    
+                else {
+                    echo "Não foi possivel achar o termino da aula";
+                }
+
+                //$result1 = mysqli_query($conexao, "INSERT INTO reservas1 (nome, equipamento, aulas, dia, termino) VALUES ('$nome', '$equipamento1', '$aulas1', '$data', '$termino1')");
+                
+                //if ($result1) {
+                  //  header("location: home.php");
+               // }
+                //else {
+                  //  echo "afffff";
+                //}
+            }
+            //--------------------------------------------------------------------------------------
         }
+        // !º Else ----------------------------------------------------------------------------------
+        else
+        {
+            $maiorAula = max($aulas);
+            $sqlTermino = mysqli_query($conexao, "SELECT termino FROM aulas WHERE aula='$maiorAula'");
+            
+            if ($sqlTermino->num_rows > 0) {
+                while ($user_data = mysqli_fetch_assoc($sqlTermino)) {
+                    $termino = $user_data['termino'];
+                    $termino1 = strval($termino);
+                }    
+            }    
+            else {
+                echo "Não foi possivel achar o termino da aula";
+            }
 
-        $result1 = mysqli_query($conexao, "INSERT INTO reservas1 (nome, equipamento, aulas, dia, termino) VALUES ('$nome', '$equipamento1', '$aulas1', '$data', '$termino1')");
-    }
-
-    if ($result1) {
-        header("location: home.php");
+            //$result1 = mysqli_query($conexao, "INSERT INTO reservas1 (nome, equipamento, aulas, dia, termino) VALUES ('$nome', '$equipamento1', '$aulas1', '$data', '$termino1')");
+            
+            //if ($result1) {
+             //   header("location: home.php");
+            //}
+            //else {
+              //  echo "Algo de errado não está certo ;D";
+            //}
+        }
+        }    
     }
 }    
-
-    
-    //$delete = "SELECT * FROM reservas1 WHERE now() NOT BETWEEN created_at AND exclusao_reserva";
-    //$result2 = $conexao->query($delete);
-
-    //if ($result2->num_rows > 0)
-    //{
-    //    $sql = mysqli_query($conexao, "DELETE FROM reservas1 WHERE now() NOT BETWEEN created_at AND // exclusao_reserva");
-    //}
-    //-----------------------------------------------------------------------------------------------    
-
-
