@@ -13,24 +13,32 @@ if (isset($_POST['submit'])) {
     $aulas1 = implode($aulas);
     $equipamento1 = implode($equipamento);
 
-    $equipamentoArray = explode(",", $equipamento1);
+    $equipamentoArray = preg_split("/ /", $equipamento1);
     
     //-------------------------------------------------------------------------------------------
     $iguais = mysqli_query($conexao, "SELECT equipamento, aulas, dia FROM reservas1");
     
     if ($iguais->num_rows > 0) {
         while ($user_dataIguais = mysqli_fetch_assoc($iguais)){
-            $equipamentoIguais = explode(",", $user_dataIguais['equipamento']);
+            $equipamentoIguais = preg_split("/ /", $user_dataIguais['equipamento']);
             $aulasIguais = $user_dataIguais['aulas'];
             $diaIguais = $user_dataIguais['dia'];
         
-        
+            print_r($equipamentoIguais); 
+            echo "<br>" . "<br>";
         //-------------------------------------------------------------------------------------------
         //TESTES    
         //Digite o code de teste aqui...
         //Pegar dois arrays e compara-los, se tiver algum equipamento/elemento igual, não executa o if
+
+
+        // Se na interseção, que no caso é o espaço/vírgula, pode verificar se nesse indice houver algo, ou tiver mais de duas letras/caracteres, o numero de intercessão subtrai -1
+        
+        
+
         //------------------------------------------------------------------------------------------
-            $intersecao = array_intersect($equipamentoIguais, $equipamentoArray);    
+            $intersecao = array_intersect($equipamentoIguais, $equipamentoArray); 
+            
             if ($intersecao == true) {
                 similar_text($aulas1, $aulasIguais, $porc1);
                 if ($porc1 > 0) {
@@ -58,12 +66,12 @@ if (isset($_POST['submit'])) {
                 //$result1 = mysqli_query($conexao, "INSERT INTO reservas1 (nome, equipamento, aulas, dia, termino) VALUES ('$nome', '$equipamento1', '$aulas1', '$data', '$termino1')");
 
                 //if ($result1) {
-                   // header("location: home.php");
-                }
+                  //  header("location: home.php");
+            //    }
                 //else {
-                //    echo "Algo de errado não está certo ;D";
-                //}   
+                  //  echo "Algo de errado não está certo ;D";
+              //  }   
             }   
         }
     }    
-//}
+}
