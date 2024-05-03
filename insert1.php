@@ -13,31 +13,56 @@ if (isset($_POST['submit'])) {
     $aulas1 = implode($aulas);
     $equipamento1 = implode($equipamento);
 
-    $equipamentoArray = preg_split("/ /", $equipamento1);
+    $equipamentoArray = explode(",", $equipamento1);
     
+    
+    $matriz = [];
     //-------------------------------------------------------------------------------------------
     $iguais = mysqli_query($conexao, "SELECT equipamento, aulas, dia FROM reservas1");
     
     if ($iguais->num_rows > 0) {
         while ($user_dataIguais = mysqli_fetch_assoc($iguais)){
-            $equipamentoIguais = preg_split("/ /", $user_dataIguais['equipamento']);
+            $array = [];
+            $equipamentoIguais = explode(",", $user_dataIguais['equipamento']);
             $aulasIguais = $user_dataIguais['aulas'];
             $diaIguais = $user_dataIguais['dia'];
+            array_push($array, $equipamentoIguais);
+            array_push($matriz, $array);
+        }
+        //print_r($matriz);
+        echo "<br>" . "<br>" . "<br>";
+        foreach ($matriz as $linha) {
+            if (array_intersect($linha[0], $equipamentoArray)) {
+                $intersecao = array_intersect($linha[0], $equipamentoArray);
+                //print_r($intersecao);
+                for ($i = 0; $i < count($intersecao); $i++) {
+                    if ($intersecao[$i] == "") {
+                        $quantidade = count($intersecao) - 1;
+                    }
+                }
+                if ($quantidade !== 0) {
+                    similar_text($aulasIguais, $aulas1, $porcentagem);
+                    if ($porcentagem > 0) {
+                        if ($data == $diaIguais) {
+                            echo "Opa professor, parece que alguém já reservou este(s) mesmo(s) equipamento(s) para este mesmo horario neste dia";
+                        }
+                    }
+                }
+            }
+        }
+    }        
+}        //-----------------------------------------------------------------------------------------
         
-            print_r($equipamentoIguais); 
+        
+        
+        /*
+        $intersecao = array_intersect($equipamentoIguais, $equipamentoArray); 
+        
+            $contagem = array_count_values($intersecao);
+
+            print_r($contagem);
             echo "<br>" . "<br>";
-        //-------------------------------------------------------------------------------------------
-        //TESTES    
-        //Digite o code de teste aqui...
-        //Pegar dois arrays e compara-los, se tiver algum equipamento/elemento igual, não executa o if
-
-
-        // Se na interseção, que no caso é o espaço/vírgula, pode verificar se nesse indice houver algo, ou tiver mais de duas letras/caracteres, o numero de intercessão subtrai -1
-        
-        
-
         //------------------------------------------------------------------------------------------
-            $intersecao = array_intersect($equipamentoIguais, $equipamentoArray); 
             
             if ($intersecao == true) {
                 similar_text($aulas1, $aulasIguais, $porc1);
@@ -71,7 +96,7 @@ if (isset($_POST['submit'])) {
                 //else {
                   //  echo "Algo de errado não está certo ;D";
               //  }   
-            }   
-        }
+            } 
     }    
 }
+*/
