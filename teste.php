@@ -49,6 +49,7 @@ print($quantidade);
                         //print_r($linha[0]);
                         //echo "<br>";
                         //print_r($dispositivosArray);
+                        //ELE SÓ TA FAZENDO INTERSECT ENTRE OS PRIMEIROS ITENS, TA BUGADO
                     } 
                 }
                 
