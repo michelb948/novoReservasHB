@@ -131,3 +131,11 @@ $query = mysqli_query($conexao, "SELECT * FROM reservas1 WHERE data_exclusao < '
 if ($query->num_rows > 0) {
     mysqli_query($conexao, "DELETE FROM reservas1 WHERE data_exclusao < '$data'");
 }
+
+$maxId = mysqli_query($conexao, "SELECT id FROM reservas1 WHERE id=100");
+
+if ($maxId->num_rows > 0) {
+    mysqli_query($conexao, "SET @num := 0");
+    mysqli_query($conexao, "UPDATE reservas1 SET id = @num := (@num+1)");
+    mysqli_query($conexao, "ALTER TABLE reservas1 AUTO_INCREMENT =1");
+}

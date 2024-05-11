@@ -12,7 +12,7 @@ if ($query->num_rows > 0) {
         $nome = $user_data['nome'];
     }
     
-    if ($nome == $_SESSION['nome']) {
+    if ($nome == $_SESSION['nome'] || $_SESSION['nome'] == "Ana Roberta Nógimo Rodrigues" || $_SESSION['nome'] == "Matheus dos santos Albuquerque" || $_SESSION['nome'] == "Raimundo Ítalo Câmara Pimentel") {
         header("location: edit.php?id=$id");
     }
     else {
